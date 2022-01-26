@@ -4,12 +4,12 @@ info:
   description: This API provides services to view and maintain the products.
   version:  v0
 servers:
-  - url: http://localhost:8080
+  - url: http://localhost:8080/api
 tags:
   - name: products
     description: Products
 paths:
-  /api/products:
+  /products:
     post:
       tags:
         - products
@@ -80,7 +80,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiErrorResponse'
-  /api/products/{product-id}:
+  /products/{product-id}:
     get:
       tags:
         - products
