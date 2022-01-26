@@ -7,6 +7,7 @@ import com.covestro.products.api.model.ProductReq;
 import com.covestro.productsservice.service.ProductsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
@@ -23,6 +24,7 @@ public class ProductsController implements ProductsApi {
 
     ProductsService productsService;
 
+    @Autowired
     ProductsController(ProductsService productsService) {
         this.productsService = productsService;
     }
@@ -39,7 +41,7 @@ public class ProductsController implements ProductsApi {
     }
 
     @Override
-    public ResponseEntity<Product> getProductsById(Integer productId) {
+    public ResponseEntity<Product> getProductsById(String productId) {
         Product product = productsService.getProductsById(productId);
         return ResponseEntity.ok(product);
     }

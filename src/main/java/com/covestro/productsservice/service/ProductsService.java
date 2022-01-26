@@ -1,8 +1,10 @@
 package com.covestro.productsservice.service;
 
 import com.covestro.products.api.model.FilteredProduct;
+import com.covestro.products.api.model.ProductReq;
 import com.covestro.productsservice.domain.Category;
 import com.covestro.productsservice.domain.Product;
+import com.covestro.productsservice.mapper.ProductsApiModelFormMapper;
 import com.covestro.productsservice.service.repository.ProductsRepository;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
@@ -14,10 +16,12 @@ import java.util.List;
 public class ProductsService {
 
     private ProductsRepository productsRepository;
+    ProductsApiModelFormMapper productsApiModelFormMapper;
 
 
-    public ProductsService(ProductsRepository productsRepository) {
+    public ProductsService(ProductsRepository productsRepository, ProductsApiModelFormMapper productsApiModelFormMapper) {
         this.productsRepository = productsRepository;
+        this.productsApiModelFormMapper = productsApiModelFormMapper;
     }
 
     public FilteredProduct getAllProducts(BigDecimal page, BigDecimal pageSize, String sort, String name, String category) {
@@ -35,14 +39,14 @@ public class ProductsService {
                 .withMatcher("category", ExampleMatcher.GenericPropertyMatchers.exact());//add filters for other columns here
         Example<Product> filter = Example.of(product, matcher);
         Pageable pageable = PageRequest.of(page.intValue(), pageSize.intValue(), toSort(sort));
-        return productsRepository.findAll(filter, pageable);
+        return productsApiModelFormMapper.toFilteredProduct(productsRepository.findAll(filter, pageable));
     }
 
-    public com.covestro.products.api.model.Product getProductsById(Integer id) {
+    public com.covestro.products.api.model.Product getProductsById(String id) {
         return null;
     }
 
-    public Product createProduct(com.covestro.products.api.model.Product productReq) {
+    public Product createProduct(ProductReq productReq) {
         return null;
     }
 
@@ -51,7 +55,7 @@ public class ProductsService {
     }
 
 
-    public com.covestro.products.api.model.Product updateProduct(Integer productId, com.covestro.products.api.model.Product productReq) {
+    public com.covestro.products.api.model.Product updateProduct(String productId, ProductReq productReq) {
         return null;
     }
 
