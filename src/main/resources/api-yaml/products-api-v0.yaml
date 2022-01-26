@@ -1,0 +1,219 @@
+openapi: 3.0.3
+info:
+  title: Products API
+  description: This API provides services to view and maintain the products.
+  version:  v0
+servers:
+  - url: http://localhost:8080
+tags:
+  - name: products
+    description: Products
+paths:
+  /api/products:
+    post:
+      tags:
+        - products
+      operationId: createProducts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductReq'
+      responses:
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+    get:
+      tags:
+        - products
+      operationId: getAllProducts
+      parameters:
+        - name: page
+          in: query
+          required: true
+          description: page number of the pagination. Send 0 for the first time.
+          schema:
+            type: number
+        - name: pageSize
+          in: query
+          required: true
+          description: number of products per page
+          schema:
+            type: number
+        - name: sort
+          in: query
+          required: true
+          description: property on which the products should be ordered. example currency.ASC
+          schema:
+            type: string
+          example: createdAt.ASC
+        - name: name
+          in: query
+          description: Name for which the products will be searched
+          schema:
+            type: string
+        - name: category
+          in: query
+          description: Category code for which products will be searched
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FilteredProduct'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+  /api/products/{product-id}:
+    get:
+      tags:
+        - products
+      operationId: getProductsById
+      parameters:
+        - name: product-id
+          in: path
+          description: ID of product
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+    put:
+      tags:
+        - products
+      operationId: updateProductById
+      parameters:
+        - name: product-id
+          in: path
+          description: ID of product
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProductReq'
+        required: true
+      responses:
+        "200":
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        "500":
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiErrorResponse'
+components:
+  schemas:
+    CategoryEnum:
+      type: string
+      description: "Category: PCS, CAS and PUR"
+      enum:
+        - PCS
+        - CAS
+        - PUR
+    Product:
+      type: object
+      required:
+        - name
+      properties:
+        id:
+          type: string
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        name:
+          type: string
+          example: MX50
+        currency :
+          type: string
+          example: USD
+        price:
+          type: number
+          example: 3.44
+    ProductReq:
+      type: object
+      required:
+        - name
+      properties:
+        category:
+          $ref: '#/components/schemas/CategoryEnum'
+        name:
+          type: string
+          example: MX50
+        currency:
+          type: string
+          example: USD
+        currentPrice:
+          type: number
+          example: 3.44
+    ApiErrorResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          description: Return Error details
+          items:
+            $ref: '#/components/schemas/Error'
+    Error:
+      required:
+        - code
+      type: object
+      properties:
+        code:
+          type: string
+          description: Unique code identifying the error occurred.
+        message:
+          type: string
+          description: Description corresponding with the error code.
+      description: Return Error details
+    FilteredProduct:
+      type: object
+      properties:
+        number:
+          type: integer
+          format: int64
+        size:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/Product'
