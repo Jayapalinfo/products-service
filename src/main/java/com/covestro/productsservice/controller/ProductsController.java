@@ -52,7 +52,7 @@ public class ProductsController implements ProductsApi {
     @Override
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> createProducts(ProductReq productReq) {
-        com.covestro.productsservice.domain.Product product = productsService.createProduct(productReq);
+        Product product = productsService.createProduct(productReq);
         return ResponseEntity.ok(new Product().id(product.getId()));
     }
 
