@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: covestro-2
+      author: Jayapal
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          indexExists:
+            IndexName: IDX_ID
+      changes:
+      - createIndex:
+          columns:
+          - column:
+              name: id
+          indexName: IDX_ID
+          tableName: product
+          unique: false

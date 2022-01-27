@@ -53,10 +53,10 @@ paths:
         - name: sort
           in: query
           required: true
-          description: property on which the products should be ordered. example currency.ASC
+          description: property on which the products should be ordered. example currency.
           schema:
             type: string
-          example: createdAt.ASC
+          example: category
         - name: name
           in: query
           description: Name for which the products will be searched

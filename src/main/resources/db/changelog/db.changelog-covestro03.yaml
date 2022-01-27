@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: covestro-3
+      author: Jayapal
+      preConditions:
+        onFail: MARK_RAN
+        not:
+          columnExists:
+            tableName: product
+            columnName: description
+      changes:
+        - addColumn:
+            tableName: product
+            columns:
+              - column:
+                  name: description
+                  type: VARCHAR(256)

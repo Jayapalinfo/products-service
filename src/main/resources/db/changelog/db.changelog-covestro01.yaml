@@ -1,0 +1,44 @@
+databaseChangeLog:
+- changeSet:
+    id: covestro-1
+    author: Jayapal
+    preConditions:
+      onFail: MARK_RAN
+      not:
+        tableExists:
+          tableName: product
+    changes:
+    - createTable:
+        columns:
+        - column:
+            name: id
+            type: VARCHAR(40)
+            constraints:
+              primaryKey: true
+              primaryKeyName: PK_PID
+        - column:
+            name: name
+            type: VARCHAR(128)
+            constraints:
+              nullable: false
+        - column:
+            name: current_price
+            type: VARCHAR(8)
+            constraints:
+              nullable: false
+        - column:
+            name: currency
+            type: VARCHAR(16)
+            constraints:
+              nullable: false
+        - column:
+            name: category
+            type: VARCHAR(16)
+            constraints:
+              nullable: false
+        - column:
+            name: last_update
+            type: TIMESTAMP
+            constraints:
+              nullable: false
+        tableName: product

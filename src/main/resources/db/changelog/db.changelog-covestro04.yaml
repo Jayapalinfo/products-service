@@ -1,0 +1,27 @@
+databaseChangeLog:
+- changeSet:
+    id: covestro-4
+    author: Jayapal
+    comment: "Products"
+    changes:
+      - insert:
+          tableName: product
+          columns:
+            - column:
+                name: id
+                value: "sys_guid()"
+            - column:
+                name: name
+                value: "Desmodur"
+            - column:
+                name: current_price
+                value: 10.23
+            - column:
+                name: currency
+                value: "EUR"
+            - column:
+                name: category
+                value: "PCS"
+            - column:
+                name: last_updated
+                value: 1643199628
