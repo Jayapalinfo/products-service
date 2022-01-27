@@ -15,7 +15,7 @@ import java.util.List;
 
 @ControllerAdvice
 @Slf4j
-public class ProductionExceptionHandler extends ResponseEntityExceptionHandler {
+public class ProductsExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ResponseStatus
     @ExceptionHandler(ProductsRuntimeException.class)
