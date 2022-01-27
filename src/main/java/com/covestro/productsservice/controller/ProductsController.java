@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 
@@ -30,6 +31,7 @@ public class ProductsController implements ProductsApi {
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<FilteredProduct> getAllProducts(
             @NotNull @Valid BigDecimal page,
             @NotNull @Valid BigDecimal pageSize,
@@ -41,22 +43,24 @@ public class ProductsController implements ProductsApi {
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> getProductsById(String productId) {
         Product product = productsService.getProductsById(productId);
         return ResponseEntity.ok(product);
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> createProducts(ProductReq productReq) {
         com.covestro.productsservice.domain.Product product = productsService.createProduct(productReq);
         return ResponseEntity.ok(new Product().id(product.getId()));
     }
 
     @Override
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> updateProductById(String productId, ProductReq productReq) {
         Product product = productsService.updateProduct(productId, productReq);
         return ResponseEntity.ok(new Product().id(product.getId()));
     }
-
 
 }
