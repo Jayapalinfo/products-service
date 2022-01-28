@@ -57,15 +57,6 @@ public class ProductsControllerTest {
     }
 
     @Test
-    void testGetProductsById_NotFound() {
-        Mockito.when(this.productsService.getProductsById(Mockito.anyString())).thenThrow(new ProductsRuntimeException(HttpStatus.INTERNAL_SERVER_ERROR,notFound()));
-        ProductsRuntimeException exception = Assertions.assertThrows(ProductsRuntimeException.class, () -> {
-            productsController.getProductsById(id);
-        });
-        Assertions.assertEquals("404",exception.getErrors().stream().map(Error::getCode).findFirst().orElse(null));
-    }
-
-    @Test
     void testUpdateProductById_success() {
         Mockito.when(this.productsService.updateProduct(Mockito.anyString(), Mockito.any(ProductReq.class))).thenReturn(getProduct());
         ResponseEntity<Product> result = productsController.updateProductById(id, getProductReq());
@@ -95,13 +86,5 @@ public class ProductsControllerTest {
         product.setCurrency("EUR");
         product.setCurrentPrice(BigDecimal.valueOf(10.23));
         return product;
-    }
-    private List<com.covestro.products.api.model.Error> notFound() {
-        List<com.covestro.products.api.model.Error> errors = new ArrayList<>();
-        com.covestro.products.api.model.Error error = new Error();
-        error.setCode("404");
-        error.setMessage("Not Found");
-        errors.add(error);
-        return errors;
     }
 }

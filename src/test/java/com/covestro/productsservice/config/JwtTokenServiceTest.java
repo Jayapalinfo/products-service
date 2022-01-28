@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-
+import static org.junit.jupiter.api.Assertions.assertNull;
 public class JwtTokenServiceTest {
 
     private final JwtTokenService jwtTokenService = new JwtTokenService("LOCAL_JWT_TOKEN_SIGNING_SECRET", "AuthorizationAlt");
@@ -18,6 +18,12 @@ public class JwtTokenServiceTest {
     void testGetClaimsFromToken() {
         Map<String, Claim> data = jwtTokenService.getClaimsFromToken(JwtUtilTest.createToken());
         assertNotNull(data);
+    }
+
+    @Test
+    void testGetClaimsFromToken_Invalid() {
+        Map<String, Claim> data = jwtTokenService.getClaimsFromToken("Invalid");
+        assertNull(data);
     }
 
     @Test

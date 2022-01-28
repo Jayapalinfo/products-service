@@ -1,10 +1,12 @@
 package com.covestro.productsservice.service;
 
 import com.covestro.products.api.model.CategoryEnum;
+import com.covestro.products.api.model.Error;
 import com.covestro.products.api.model.FilteredProduct;
 import com.covestro.products.api.model.Product;
 import com.covestro.products.api.model.ProductReq;
 import com.covestro.productsservice.domain.Category;
+import com.covestro.productsservice.exception.ProductsRuntimeException;
 import com.covestro.productsservice.mapper.ProductsApiModelFormMapper;
 import com.covestro.productsservice.service.repository.ProductsRepository;
 import org.junit.jupiter.api.Assertions;
@@ -15,9 +17,11 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -65,6 +69,16 @@ public class ProductsServiceTest {
     }
 
     @Test
+    void testGetProductsById_NotFound() {
+        Mockito.when(this.productsRepository.findById(Mockito.anyString())).thenReturn(Optional.ofNullable(null));
+        Mockito.when(this.productsApiModelFormMapper.toProductResponse(Mockito.any(com.covestro.productsservice.domain.Product.class))).thenReturn(getProduct());
+        ProductsRuntimeException exception = Assertions.assertThrows(ProductsRuntimeException.class, () -> {
+            productsService.getProductsById(id);
+        });
+        Assertions.assertEquals("404",exception.getErrors().stream().map(Error::getCode).findFirst().orElse(null));
+    }
+
+    @Test
     void testUpdateProductById_success() {
         Mockito.when(this.productsRepository.findById(Mockito.anyString())).thenReturn(Optional.of(getProductEntity()));
         Mockito.when(this.productsApiModelFormMapper.toProductResponse(Mockito.any(com.covestro.productsservice.domain.Product.class))).thenReturn(getProduct());
@@ -81,6 +95,15 @@ public class ProductsServiceTest {
         Mockito.when(this.productsApiModelFormMapper.toProduct(Mockito.any(ProductReq.class))).thenReturn(getProductEntity());
         Mockito.when(this.productsApiModelFormMapper.toProductResponse(Mockito.any(com.covestro.productsservice.domain.Product.class))).thenReturn(getProduct());
         Product result = productsService.createProduct(getProductReq());
+        assertNotNull(ResponseEntity.ok(result));
+    }
+
+    @Test
+    void testCreateProducts_success() {
+        Mockito.when(this.productsRepository.save(Mockito.any(com.covestro.productsservice.domain.Product.class))).thenReturn(getProductEntity());
+        Mockito.when(this.productsApiModelFormMapper.toProduct(Mockito.any(ProductReq.class))).thenReturn(getProductEntity());
+        Mockito.when(this.productsApiModelFormMapper.toProductResponse(Mockito.any(com.covestro.productsservice.domain.Product.class))).thenReturn(getProduct());
+        Iterable<com.covestro.productsservice.domain.Product> result = productsService.saveAll(List.of(getProductEntity()));
         assertNotNull(ResponseEntity.ok(result));
     }
 
@@ -109,5 +132,14 @@ public class ProductsServiceTest {
         product.setCurrency("EUR");
         product.setCurrentPrice("10.23");
         return product;
+    }
+
+    private List<com.covestro.products.api.model.Error> notFound() {
+        List<com.covestro.products.api.model.Error> errors = new ArrayList<>();
+        com.covestro.products.api.model.Error error = new Error();
+        error.setCode("404");
+        error.setMessage("Not Found");
+        errors.add(error);
+        return errors;
     }
 }

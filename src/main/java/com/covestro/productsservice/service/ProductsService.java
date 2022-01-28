@@ -24,8 +24,8 @@ import java.util.List;
 @Service
 public class ProductsService {
 
-    private ProductsRepository productsRepository;
-    ProductsApiModelFormMapper productsApiModelFormMapper;
+    private final ProductsRepository productsRepository;
+    private final ProductsApiModelFormMapper productsApiModelFormMapper;
 
     @Autowired
     public ProductsService(ProductsRepository productsRepository, ProductsApiModelFormMapper productsApiModelFormMapper) {
