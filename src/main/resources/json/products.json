@@ -7,13 +7,13 @@
   },
   {
     "name": "MX50",
-    "price": 5.55,
+    "currentPrice": 5.55,
     "currency": "EUR",
     "category": "CAS"
   },
   {
     "name": "WH1000",
-    "price": 3.44,
+    "currentPrice": 3.44,
     "currency": "USD",
     "category": "PUR"
   }
