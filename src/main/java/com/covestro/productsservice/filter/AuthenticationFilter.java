@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -37,7 +36,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             Map<String, Claim> claims = jwtTokenService.getClaimsFromToken(t);
             String user = claims.get("sub").asString();
             String role = claims.get("role").asString();
-            List<SimpleGrantedAuthority> authority = Arrays.asList(new SimpleGrantedAuthority(role));
+            List<SimpleGrantedAuthority> authority = List.of(new SimpleGrantedAuthority(role));
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, authority);
             logger.info("authenticated user role ROLE_ADMIN setting security context");
             SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -47,7 +46,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     }
 
     private Optional<String> getTokenValue(HttpServletRequest request) {
-        return Optional.ofNullable(getHeaderValueByName(jwtTokenService.getHeaderName(), request).orElse(null));
+        return getHeaderValueByName(jwtTokenService.getHeaderName(), request);
 
     }
 

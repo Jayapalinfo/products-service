@@ -24,7 +24,7 @@ spring:
 covestro:
   products:
     jwt:
-      signingKey: LOCAL_KEY
+      signingKey: LOCAL_JWT_TOKEN_SIGNING_SECRET
       expirationMillis: 604800
       headerName: AuthorizationAlt
   requester: ADMIN
