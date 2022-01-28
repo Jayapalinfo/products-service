@@ -42,6 +42,10 @@ public class JwtTokenService {
         return getClaimsFromToken(signingKey, token);
     }
 
+    public String getSignedToken(Map<String, String> claims) {
+        return getSignedToken(claims, this.signingKey);
+    }
+
     public String getSignedToken(Map<String, String> claims, String key) {
         JWTCreator.Builder builder = JWT.create();
         claims.forEach((k, v) -> builder.withClaim(k, v));

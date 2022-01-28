@@ -14,7 +14,7 @@ public class JwtProvider {
     public static final String AUTHERNTICATION_HEADER_FORMAT = "Bearer %s";
     public static final String ROLE_EXECUTOR = "ROLE_ADMIN";
 
-    @Value("${covestro.products.jwt.signingKey:signingKey}")
+    @Value("${covestro.products.jwt.signingKey:LOCAL_JWT_TOKEN_SIGNING_SECRET}")
     private String signingKey;
     @Value("${covestro.products.jwt.expirationMillis:10000}")
     private long expirationMillis;
