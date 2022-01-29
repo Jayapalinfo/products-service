@@ -28,7 +28,7 @@ public class JwtProvider {
         return new JwtTokenService(signingKey, headerName);
     }
 
-    private String createToken() {
+    public String createToken() {
         return JWT.create()
                 .withClaim("sub", requester)
                 .withClaim("role", ROLE_EXECUTOR)

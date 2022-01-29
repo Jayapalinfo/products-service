@@ -19,10 +19,42 @@ spring:
     username: SA
     password: myPass123
 
+logging:
+  level:
+    root: INFO
+
 covestro:
   products:
     jwt:
       signingKey: LOCAL_JWT_TOKEN_SIGNING_SECRET
       expirationMillis: 604800
+      headerName: AuthorizationAlt
+  requester: ADMIN
+
+---
+# PROD
+server:
+  servlet:
+    context-path: /api
+spring:
+  config:
+    activate:
+      on-profile: prod
+  liquibase:
+    enabled: true
+  datasource:
+    url: jdbc:sqlserver://host.docker.internal:1433;databaseName=master
+    username: SA
+    password: myPass123
+
+logging:
+  level:
+    root: INFO
+
+covestro:
+  products:
+    jwt:
+      signingKey: PROD_JWT_TOKEN_SIGNING_SECRET
+      expirationMillis: 60000
       headerName: AuthorizationAlt
   requester: ADMIN

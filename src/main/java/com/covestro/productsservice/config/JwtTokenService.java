@@ -33,7 +33,7 @@ public class JwtTokenService {
                     .build()
                     .verify(token).getClaims();
         } catch (JWTVerificationException ex) {
-            log.warn("JWT Verification failed {}", ex.getMessage());
+            log.error("JWT Verification failed {}", ex.getMessage());
         }
         return null;
     }

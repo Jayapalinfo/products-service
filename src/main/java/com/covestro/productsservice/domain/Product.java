@@ -36,6 +36,7 @@ public class Product {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Category category;
+    private String description;
 
     @CreationTimestamp
     private LocalDateTime lastUpdate;

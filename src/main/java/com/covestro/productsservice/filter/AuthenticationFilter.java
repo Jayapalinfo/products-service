@@ -2,6 +2,7 @@ package com.covestro.productsservice.filter;
 
 import com.auth0.jwt.interfaces.Claim;
 import com.covestro.productsservice.config.JwtTokenService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+@Slf4j
 public class AuthenticationFilter extends OncePerRequestFilter {
 
     public static final String AUTHENTICATION_HEADER_VALUE_PREFIX = "Bearer ";
@@ -38,7 +40,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             String role = claims.get("role").asString();
             List<SimpleGrantedAuthority> authority = List.of(new SimpleGrantedAuthority(role));
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null, authority);
-            logger.info("authenticated user role ROLE_ADMIN setting security context");
+            log.info("authenticated user {}!!", user);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         });
 
