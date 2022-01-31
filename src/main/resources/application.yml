@@ -15,7 +15,7 @@ spring:
   liquibase:
     enabled: true
   datasource:
-    url: jdbc:sqlserver://host.docker.internal:1433;databaseName=master
+    url: jdbc:sqlserver://kubernetes.docker.internal:1433;databaseName=master
     username: SA
     password: myPass123
 
@@ -28,7 +28,7 @@ covestro:
     jwt:
       signingKey: LOCAL_JWT_TOKEN_SIGNING_SECRET
       expirationMillis: 604800
-      headerName: AuthorizationAlt
+      headerName: Authorization
   requester: ADMIN
 
 ---
@@ -56,5 +56,5 @@ covestro:
     jwt:
       signingKey: PROD_JWT_TOKEN_SIGNING_SECRET
       expirationMillis: 60000
-      headerName: AuthorizationAlt
+      headerName: Authorization
   requester: ADMIN

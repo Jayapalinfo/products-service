@@ -12,6 +12,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -33,17 +36,27 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+                .cors().configurationSource(request ->
+                {
+                    CorsConfiguration cors = new CorsConfiguration();
+                    cors.setAllowedMethods(
+                            List.of(HttpMethod.PUT.name(), HttpMethod.GET.name(), HttpMethod.POST.name()));
+                    cors.applyPermitDefaultValues();
+                    return cors;
+                })
+                .and()
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(authenticationEntryPoint()).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.GET,"/generate-token/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/generate-token/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .addFilterBefore(new AuthenticationFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(new AuthenticationFilter(jwtTokenService), UsernamePasswordAuthenticationFilter.class)
+        ;
     }
 }
