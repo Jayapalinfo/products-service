@@ -3,6 +3,8 @@ package com.covestro.productsservice.integrationtest;
 import com.covestro.products.api.model.CategoryEnum;
 import com.covestro.products.api.model.ProductReq;
 import com.covestro.productsservice.util.JwtUtilTest;
+import com.github.tomakehurst.wiremock.WireMockServer;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,7 +14,15 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.math.BigDecimal;
 
+import static com.github.tomakehurst.wiremock.client.WireMock.get;
+import static com.github.tomakehurst.wiremock.client.WireMock.put;
+import static com.github.tomakehurst.wiremock.client.WireMock.post;
+import static com.github.tomakehurst.wiremock.client.WireMock.urlEqualTo;
+import static com.github.tomakehurst.wiremock.client.WireMock.aResponse;
+import static com.github.tomakehurst.wiremock.client.WireMock.matching;
+import static com.github.tomakehurst.wiremock.core.WireMockConfiguration.options;
 import static io.restassured.RestAssured.given;
+import static java.lang.Integer.MAX_VALUE;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -25,35 +35,75 @@ public class ProductsIntegrationTest {
     @LocalServerPort
     public int port;
 
-    private static String productId;
+    private static String productId = "052de1f9-103a-4a65-a55d-7f39f8932de0";
+
+    WireMockServer wireMockServer;
+    public static final int httpPort = 8083;
+
+    @BeforeEach
+    public void setup() {
+        wireMockServer = new WireMockServer(options()
+                .disableRequestJournal()
+                .port(httpPort)
+                .jettyAcceptors(2)
+                .jettyAcceptQueueSize(NumberUtils.toInt("100", MAX_VALUE)));
+        wireMockServer.start();
+        setupStub();
+    }
+
+    @AfterEach
+    public void teardown() {
+        wireMockServer.stop();
+    }
+
+    public void setupStub() {
+        wireMockServer.stubFor(get(urlEqualTo("/api/products?page=0&pageSize=5&sort=category&name=category&category=PCS"))
+                .willReturn(aResponse().withHeader("Content-Type", "application/json")
+                        .withStatus(200)
+                        .withBodyFile("json-response/products.json")));
+
+        wireMockServer.stubFor(get(urlEqualTo("/api/products/052de1f9-103a-4a65-a55d-7f39f8932de0"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withBodyFile("json-response/product.json")));
+        wireMockServer.stubFor(put(urlEqualTo("/api/products/052de1f9-103a-4a65-a55d-7f39f8932de0"))
+                .willReturn(aResponse()
+                        .withStatus(200)
+                        .withHeader("Content-Type", "application/json")
+                        .withFixedDelay(2500))
+        );
+        wireMockServer.stubFor(post(urlEqualTo("/api/products"))
+                .willReturn(aResponse().
+                        withStatus(200).
+                        withHeader("Content-Type", "application/json")
+                        .withFixedDelay(2500))
+        );
+    }
 
     @Test
-    @Order(1)
     void testCreateProduct() {
         ProductReq request = getProductReq();
-        productId = given()
-                .header("AuthorizationAlt", JwtUtilTest.createToken())
+        given()
+                .header("Authorization", JwtUtilTest.createToken())
                 .request()
                 .header("Content-Type", "application/json")
                 .body(request)
                 .when()
                 .log().all(true)
-                .post(HTTP_LOCALHOST + port + CONTEXT_ROOT + GET_PRODUCTS_URI)
+                .post(HTTP_LOCALHOST + httpPort + CONTEXT_ROOT + GET_PRODUCTS_URI)
                 .andReturn()
                 .then().log().all(true)
-                .statusCode(200)
-                .extract()
-                .path("id");;
+                .statusCode(200);
+        ;
     }
 
     @Test
-    @Order(2)
     void testGetProductById() {
         given()
-                .header("AuthorizationAlt", JwtUtilTest.createToken())
+                .header("Authorization", JwtUtilTest.createToken())
                 .when()
                 .log().all(true)
-                .get(HTTP_LOCALHOST + port + CONTEXT_ROOT + GET_PRODUCTS_URI + "/{product-id}",
+                .get(HTTP_LOCALHOST + httpPort + CONTEXT_ROOT + GET_PRODUCTS_URI + "/{product-id}",
                         productId)
                 .andReturn()
                 .then().log().all(true)
@@ -61,17 +111,16 @@ public class ProductsIntegrationTest {
     }
 
     @Test
-    @Order(3)
     void testUpdateProductById() {
         ProductReq request = getProductReq();
         given()
-                .header("AuthorizationAlt", JwtUtilTest.createToken())
+                .header("Authorization", JwtUtilTest.createToken())
                 .request()
                 .header("Content-Type", "application/json")
                 .body(request)
                 .when()
                 .log().all(true)
-                .put(HTTP_LOCALHOST + port + CONTEXT_ROOT + GET_PRODUCTS_URI + "/{product-id}",
+                .put(HTTP_LOCALHOST + httpPort + CONTEXT_ROOT + GET_PRODUCTS_URI + "/{product-id}",
                         productId)
                 .andReturn()
                 .then().log().all(true)
@@ -79,10 +128,9 @@ public class ProductsIntegrationTest {
     }
 
     @Test
-    @Order(4)
     void testGetProductsList() {
         given()
-                .header("AuthorizationAlt", JwtUtilTest.createToken())
+                .header("Authorization", JwtUtilTest.createToken())
                 .queryParam("page", 0)
                 .queryParam("pageSize", 5)
                 .queryParam("sort", "category")
@@ -90,7 +138,7 @@ public class ProductsIntegrationTest {
                 .queryParam("category", "PCS")
                 .when()
                 .log().all(true)
-                .get(HTTP_LOCALHOST + port + CONTEXT_ROOT + GET_PRODUCTS_URI)
+                .get(HTTP_LOCALHOST + httpPort + CONTEXT_ROOT + GET_PRODUCTS_URI)
                 .andReturn()
                 .then().log().all(true)
                 .statusCode(200);

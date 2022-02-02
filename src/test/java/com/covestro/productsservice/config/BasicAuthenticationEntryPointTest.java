@@ -24,7 +24,9 @@ public class BasicAuthenticationEntryPointTest {
                 return super.getMessage();
             }
         };
-        Mockito.when(response.getOutputStream()).thenReturn(outputStream);
+        Mockito
+                .when(response.getOutputStream())
+                .thenReturn(outputStream);
         basicAuthenticationEntryPoint.commence(request, response, exception);
     }
 }

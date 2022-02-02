@@ -24,7 +24,9 @@ public class TokenGenerateControllerTest {
 
     @Test
     void testGetJwtToken_success() {
-        Mockito.when(this.jwtProvider.getAuthenticationHeaderValue()).thenReturn(token);
+        Mockito
+                .when(this.jwtProvider.getAuthenticationHeaderValue())
+                .thenReturn(token);
         ResponseEntity<FilteredProduct> result = authenticationController.getGeneratedToken();
         assertNotNull(ResponseEntity.ok(result));
     }

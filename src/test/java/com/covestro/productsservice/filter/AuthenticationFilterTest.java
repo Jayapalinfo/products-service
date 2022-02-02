@@ -18,6 +18,7 @@ import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class AuthenticationFilterTest {
 
@@ -48,9 +49,12 @@ public class AuthenticationFilterTest {
         Map<String, Claim> claimsMap = JWT.require(Algorithm.HMAC256(signingKey.getBytes()))
                 .build()
                 .verify(token).getClaims();
-        Mockito.when(this.mockServletHttpRequest.getHeader(Mockito.anyString())).thenReturn(token);
-        Mockito.when(this.jwtTokenService.getHeaderName()).thenReturn(headerName);
-        Mockito.when(this.jwtTokenService.getClaimsFromToken(Mockito.anyString())).thenReturn(claimsMap);
+        when(this.mockServletHttpRequest.getHeader(Mockito.anyString()))
+                .thenReturn(token);
+        when(this.jwtTokenService.getHeaderName())
+                .thenReturn(headerName);
+        when(this.jwtTokenService.getClaimsFromToken(Mockito.anyString()))
+                .thenReturn(claimsMap);
         authenticationTokenFilter.doFilterInternal(mockServletHttpRequest, mockServletHttpResponse, mockFilterChain);
         assertThat(SecurityContextHolder.getContext().getAuthentication().getPrincipal()).isEqualTo("Test");
         assertThat(SecurityContextHolder.getContext().getAuthentication().getAuthorities()).size().isEqualTo(1);

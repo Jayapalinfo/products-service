@@ -1,0 +1,260 @@
+{
+    "number": 0,
+    "size": 36,
+    "totalElements": 38,
+    "totalPages": 2,
+    "products": [
+        {
+            "id": "052de1f9-103a-4a65-a55d-7f39f8932de0",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "0a70f8da-cfef-4c20-9c72-180d0f048987",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "1a9d5bea-2baa-452b-bd01-13689900efbf",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "2025f5ad-befa-483b-b94e-b87fc3b66d68",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "24c280f7-cf5b-4d25-976f-e8bd943c27d4",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "2735371b-11af-415e-9b83-324408ff6e42",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "328f43db-5fd6-4b6f-a278-cd433cf1ac1f",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "43ae9fd0-7b12-4739-beb5-ee1a7fc15c8b",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "4846460b-5828-46d6-87b0-69f0616ef6d7",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "49d8fd83-d478-48aa-8265-1a54d4bc6714",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "517bce7d-b8ab-41f9-a434-272a4ee631ec",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "5e6f6ab2-6688-47f0-bd3d-e0b60f6605b3",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "632e353b-a81b-4b93-a382-f338429ece93",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "6d54a49b-35bb-47b6-afe8-3b9f8f0287be",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "7107ed24-8f0e-41b7-9cf1-0d8bf578e9b3",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "7d890219-7208-412d-b4ed-a09bcd942833",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "805aa950-0874-4c84-a993-52c6160a0133",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "80b637ae-4642-4868-9f68-35a5d4be66f3",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "839b97bd-c64f-47ae-a454-6cbb70548c77",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "86a89420-3db2-4247-a49e-bf967d693597",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "890efd01-08db-488a-9b13-a9c3af9d7e24",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "8d46fbe3-c80f-4a4c-aef1-970774c9d6ea",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "93e042a6-a169-446c-9ef6-df17a5ebf40e",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "94da27af-d628-459b-918f-2033717be14b",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "ade9bcef-4bed-46d4-a8be-ede0fdd8aca5",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "ae8c3b31-2bb2-40da-a18e-6d1816196899",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "b80addca-cf88-4a4a-bbaf-b23d73c0f66d",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "bd814aab-b141-4f4f-89df-bdae147a0000",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "d2b5b58e-0ade-4a2b-b9bc-cc4b549f333e",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "d7165ec7-14b6-48cc-bfb0-a0f4f1687ec1",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "dad64ffe-d382-475d-a541-5f50517f2847",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "deafd4cb-d72d-4b45-bb28-b884518af1aa",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "e1523d62-c13f-4afe-81b0-995427b0b324",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "e3e7bc3d-1f8d-48a1-b06a-16b52ce3ffdd",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "e5ac8530-8640-4a82-9773-b3349789b181",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        },
+        {
+            "id": "f0689948-f51e-4b78-b287-03d4c680fd2b",
+            "category": "PCS",
+            "name": "Desmodur",
+            "currency": "EUR",
+            "price": 10.23
+        }
+    ]
+}

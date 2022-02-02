@@ -38,7 +38,8 @@ public class ProductsService {
         Product product = new Product();
         product.setName(name);
         ExampleMatcher matcher = ExampleMatcher.matching()
-                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.exact()); //add filters for other columns here
+                .withMatcher("name", ExampleMatcher.GenericPropertyMatchers.exact())
+                .withMatcher("category", ExampleMatcher.GenericPropertyMatchers.exact()); //add filters for other columns here
         Example<Product> filter = Example.of(product, matcher);
         Pageable pageable = PageRequest.of(page.intValue(), pageSize.intValue(), toSort(sort));
         return productsApiModelFormMapper.toFilteredProduct(productsRepository.findAll(filter, pageable));

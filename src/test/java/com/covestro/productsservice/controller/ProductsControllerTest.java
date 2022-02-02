@@ -1,26 +1,22 @@
 package com.covestro.productsservice.controller;
 
 import com.covestro.products.api.model.CategoryEnum;
-import com.covestro.products.api.model.Error;
 import com.covestro.products.api.model.FilteredProduct;
 import com.covestro.products.api.model.Product;
 import com.covestro.products.api.model.ProductReq;
-import com.covestro.productsservice.exception.ProductsRuntimeException;
 import com.covestro.productsservice.service.ProductsService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class ProductsControllerTest {
 
@@ -42,7 +38,8 @@ public class ProductsControllerTest {
     void testGetAllProducts_success() {
         FilteredProduct filteredProduct = new FilteredProduct();
         filteredProduct.addProductsItem(getProduct());
-        Mockito.when(this.productsService.getAllProducts(Mockito.any(BigDecimal.class), Mockito.any(BigDecimal.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(filteredProduct);
+        when(this.productsService.getAllProducts(Mockito.any(BigDecimal.class), Mockito.any(BigDecimal.class), Mockito.anyString(), Mockito.anyString(), Mockito.anyString()))
+                .thenReturn(filteredProduct);
         ResponseEntity<FilteredProduct> result = productsController.getAllProducts(page, pageSize, "name", "", "");
         assertNotNull(ResponseEntity.ok(result));
         Assertions.assertEquals(1, Objects.requireNonNull(result.getBody().getProducts()).size());
@@ -50,7 +47,8 @@ public class ProductsControllerTest {
 
     @Test
     void testGetProductsById_success() {
-        Mockito.when(this.productsService.getProductsById(Mockito.anyString())).thenReturn(getProduct());
+        when(this.productsService.getProductsById(Mockito.anyString()))
+                .thenReturn(getProduct());
         ResponseEntity<Product> result = productsController.getProductsById(id);
         assertNotNull(ResponseEntity.ok(result));
         Assertions.assertEquals(name, Objects.requireNonNull(result.getBody().getName()));
@@ -58,14 +56,16 @@ public class ProductsControllerTest {
 
     @Test
     void testUpdateProductById_success() {
-        Mockito.when(this.productsService.updateProduct(Mockito.anyString(), Mockito.any(ProductReq.class))).thenReturn(getProduct());
+        when(this.productsService.updateProduct(Mockito.anyString(), Mockito.any(ProductReq.class)))
+                .thenReturn(getProduct());
         ResponseEntity<Product> result = productsController.updateProductById(id, getProductReq());
         assertNotNull(ResponseEntity.ok(result));
     }
 
     @Test
     void testCreateProduct_success() {
-        Mockito.when(this.productsService.createProduct(Mockito.any(ProductReq.class))).thenReturn(getProduct());
+        when(this.productsService.createProduct(Mockito.any(ProductReq.class)))
+                .thenReturn(getProduct());
         ResponseEntity<Product> result = productsController.createProducts(getProductReq());
         assertNotNull(ResponseEntity.ok(result));
     }

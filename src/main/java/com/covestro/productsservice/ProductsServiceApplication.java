@@ -28,8 +28,7 @@ public class ProductsServiceApplication {
 			ObjectMapper mapper = new ObjectMapper();
 			TypeReference<List<Product>> typeReference = new TypeReference<>() {
 			};
-			InputStream inputStream = TypeReference.class.getResourceAsStream("/json/products.json");
-			try {
+			try(InputStream inputStream = TypeReference.class.getResourceAsStream("/json/products.json")) {
 				List<Product> users = mapper.readValue(inputStream, typeReference);
 				productsService.saveAll(users);
 				log.info("Products Saved");

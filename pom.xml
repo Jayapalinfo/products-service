@@ -18,6 +18,7 @@
         <springfox-version>3.0.0</springfox-version>
         <jackson-databind-nullable.version>0.2.1</jackson-databind-nullable.version>
         <openapi-version>5.3.0</openapi-version>
+        <wiremock.version>2.24.1</wiremock.version>
         <java.version>11</java.version>
     </properties>
     <dependencies>
@@ -106,6 +107,13 @@
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <!-- wiremock support -->
+        <dependency>
+            <groupId>com.github.tomakehurst</groupId>
+            <artifactId>wiremock</artifactId>
+            <version>${wiremock.version}</version>
         </dependency>
 
         <dependency>

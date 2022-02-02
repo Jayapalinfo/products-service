@@ -16,17 +16,21 @@ import java.io.OutputStream;
 @Slf4j
 public class BasicAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private final ObjectMapper mapper = new ObjectMapper();
+
     @Override
-    public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException) throws IOException {
+    public void commence(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException authException) {
         log.error("Unauthorized error: {}", authException.getMessage());
-        OutputStream out = response.getOutputStream();
-        Error error = new Error();
-        error.setCode(String.valueOf(HttpServletResponse.SC_UNAUTHORIZED));
-        error.setMessage("Unauthorized!!!");
-        ApiErrorResponse apiResponse = new ApiErrorResponse();
-        apiResponse.addErrorsItem(error);
-        mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS,true);
-        mapper.writeValue(out,apiResponse);
-        out.flush();
+        try (OutputStream out = response.getOutputStream()) {
+            Error error = new Error();
+            error.setCode(String.valueOf(HttpServletResponse.SC_UNAUTHORIZED));
+            error.setMessage("Unauthorized!!!");
+            ApiErrorResponse apiResponse = new ApiErrorResponse();
+            apiResponse.addErrorsItem(error);
+            mapper.configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, true);
+            mapper.writeValue(out, apiResponse);
+            out.flush();
+        } catch (Exception e) {
+            log.error("Error: {}", e.getMessage());
+        }
     }
 }
