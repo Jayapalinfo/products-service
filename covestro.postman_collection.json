@@ -1,0 +1,161 @@
+{
+	"info": {
+		"_postman_id": "cb2ac7ac-bb32-49a9-b92a-7cf6a1ab8d47",
+		"name": "covestro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get by ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{covUrl}}/api/products/052de1f9-103a-4a65-a55d-7f39f8932de0",
+					"host": [
+						"{{covUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"052de1f9-103a-4a65-a55d-7f39f8932de0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate token",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{covUrl}}/api/generate-token",
+					"host": [
+						"{{covUrl}}"
+					],
+					"path": [
+						"api",
+						"generate-token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update by ID",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"FGF\",\r\n    \"name\": \"MX50\",\r\n    \"currency\": \"EUR\",\r\n    \"currentPrice\": 10.24\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{covUrl}}/api/products/052de1f9-103a-4a65-a55d-7f39f8932de0",
+					"host": [
+						"{{covUrl}}"
+					],
+					"path": [
+						"api",
+						"products",
+						"052de1f9-103a-4a65-a55d-7f39f8932de0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create Product",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "default"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"category\": \"PUR\",\r\n    \"name\": \"WH1000\",\r\n    \"currency\": \"USD\",\r\n    \"currentPrice\": 4.44\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{covUrl}}/api/products",
+					"host": [
+						"{{covUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all products",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{jwtToken}}",
+						"type": "default"
+					}
+				],
+				"url": {
+					"raw": "{{covUrl}}/api/products?page=0&pageSize=36&name=Desmodur&sort=name",
+					"host": [
+						"{{covUrl}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "pageSize",
+							"value": "36"
+						},
+						{
+							"key": "name",
+							"value": "Desmodur"
+						},
+						{
+							"key": "sort",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

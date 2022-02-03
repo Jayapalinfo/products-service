@@ -30,14 +30,8 @@ Import the project in to IDE and go to the application root folder then run `mvn
 
 Simply build the image using docker.
 
-#### Build
-
-```shell
-docker build -t products-service .
-```
-
 #### Run
 
 ```shell
-docker container run --name products -p 8080:8080 -d products-service
+docker-compose up
 ```
