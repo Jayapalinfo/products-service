@@ -4,6 +4,7 @@ import com.covestro.productsservice.domain.Product;
 import com.covestro.productsservice.service.ProductsService;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectReader;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -18,6 +19,10 @@ import java.util.List;
 @Slf4j
 public class ProductsServiceApplication {
 
+	@Bean
+	public ObjectMapper objectMapper() {
+		return new ObjectMapper();
+	}
 	public static void main(String[] args) {
 		SpringApplication.run(ProductsServiceApplication.class, args);
 	}
@@ -25,7 +30,7 @@ public class ProductsServiceApplication {
 	@Bean
 	CommandLineRunner loadProducts(ProductsService productsService) {
 		return args -> {
-			ObjectMapper mapper = new ObjectMapper();
+			ObjectMapper mapper = objectMapper();
 			TypeReference<List<Product>> typeReference = new TypeReference<>() {
 			};
 			try(InputStream inputStream = TypeReference.class.getResourceAsStream("/json/products.json")) {
