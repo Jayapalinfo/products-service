@@ -53,14 +53,14 @@ public class ProductsController implements ProductsApi {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> createProducts(ProductReq productReq) {
         Product product = productsService.createProduct(productReq);
-        return ResponseEntity.ok(new Product().id(product.getId()));
+        return ResponseEntity.ok(product);
     }
 
     @Override
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<Product> updateProductById(String productId, ProductReq productReq) {
         Product product = productsService.updateProduct(productId, productReq);
-        return ResponseEntity.ok(new Product().id(product.getId()));
+        return ResponseEntity.ok(product);
     }
 
 }
