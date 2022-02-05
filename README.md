@@ -28,10 +28,21 @@ Import the project in to IDE and go to the application root folder then run `mvn
 
 ## Usage
 
-Simply build the image using docker.
+Simply build the image using docker. Ggo to the application root folder
 
 #### Run
 
 ```shell
 docker-compose up
+```
+
+## Other Notes
+
+```shell
+docker build -t products-service .
+docker image build -t products-service .
+docker container run --name products -p 8080:8080 -d products-service
+docker container logs products
+docker pull mcr.microsoft.com/mssql/server
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=******" -p 127.0.0.1:1433:1433 --name productsDb -d mcr.microsoft.com/mssql/server:2019-latest
 ```
